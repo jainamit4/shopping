@@ -168,8 +168,10 @@ export function findExamplePrice(store: RetailerId, query: string): PriceFixture
 export function findExampleCoupons(store: RetailerId, query: string, category?: Category): CouponRecord[] {
   return EXAMPLE_COUPONS.filter((row) => {
     if (row.store !== store) return false;
-    if (row.categoryMatch && category && !row.categoryMatch.includes(category)) return false;
-    if (row.queryMatch && row.queryMatch.length > 0 && !matchesQuery(query, row.queryMatch)) return false;
-    return true;
+    const queryHit = row.queryMatch && row.queryMatch.length > 0 ? matchesQuery(query, row.queryMatch) : false;
+    if (queryHit) return true;
+    if (row.queryMatch && row.queryMatch.length > 0) return false;
+    if (row.categoryMatch && category) return row.categoryMatch.includes(category);
+    return false;
   });
 }

@@ -32,6 +32,8 @@ npm run preview
 5. Try `Ninja air fryer`, `interior paint`, `BOS to SFO`, or `hotels in Chicago`.
 6. Unknown queries show **Price on site** — no invented numbers.
 
+![Paper-towel comparison with example prices](docs/demo-paper-towels.webp)
+
 ## CLI for agents
 
 ```bash

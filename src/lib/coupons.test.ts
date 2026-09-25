@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { evaluateCoupon, getCouponHelp } from "./coupons";
-import { compare } from "./compare";
+import { compare, inferCategory } from "./compare";
 
 describe("coupon helper", () => {
   it("never invents a code when none is supplied", () => {
@@ -16,6 +16,11 @@ describe("coupon helper", () => {
     expect(help.codes[0]?.code).toBe("CIRCLE10");
     expect(help.codes[0]?.isExample).toBe(true);
     expect(help.codes[0]?.sourceUrl).toMatch(/^https?:\/\//);
+  });
+
+  it("still attaches a query-matching fixture when category is general", () => {
+    const help = getCouponHelp("target", "Bounty paper towels", "general");
+    expect(help.codes[0]?.code).toBe("CIRCLE10");
   });
 
   it("accepts a user-pasted code without marking it as a fixture", () => {
@@ -65,6 +70,10 @@ describe("compare + recommend", () => {
     const result = compare({ query: "obscure widget xyz-9911" });
     expect(result.options.every((option) => option.price === undefined)).toBe(true);
     expect(result.recommendation?.usedExamplePrices).toBe(false);
+  });
+
+  it("detects household from plural paper towels", () => {
+    expect(inferCategory("Bounty paper towels")).toBe("household");
   });
 
   it("routes flight queries to travel link builders", () => {

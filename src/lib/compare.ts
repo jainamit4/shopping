@@ -13,11 +13,11 @@ export function inferCategory(query: string, explicit?: Category): Category {
   if (explicit) return explicit;
   if (FLIGHT_HINT.test(query)) return "flights";
   if (HOTEL_HINT.test(query)) return "hotels";
-  if (/\b(paint|drill|lumber|plywood|screwdriver|hammer)\b/i.test(query)) return "hardware";
-  if (/\b(air fryer|laptop|tv|headphones|iphone|ipad)\b/i.test(query)) return "electronics";
-  if (/\b(milk|eggs|bread|grocery|bananas|chicken)\b/i.test(query)) return "groceries";
-  if (/\b(paper towel|detergent|trash bag|laundry|cleaner)\b/i.test(query)) return "household";
-  if (/\b(jeans|shirt|sneakers|dress|hoodie)\b/i.test(query)) return "clothes";
+  if (/\b(paints?|drill|lumber|plywood|screwdriver|hammer)\b/i.test(query)) return "hardware";
+  if (/\b(air fryers?|laptop|tv|headphones?|iphone|ipad)\b/i.test(query)) return "electronics";
+  if (/\b(milk|eggs|bread|grocer(?:y|ies)|bananas|chicken)\b/i.test(query)) return "groceries";
+  if (/\b(paper towels?|detergent|trash bags?|laundry|cleaner)\b/i.test(query)) return "household";
+  if (/\b(jeans|shirts?|sneakers|dress(?:es)?|hoodie)\b/i.test(query)) return "clothes";
   return "general";
 }
 
